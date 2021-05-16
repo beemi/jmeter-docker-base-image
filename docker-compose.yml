@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+
+  base:
+    build: jmeter-base/
+    image: jmeter-base
+    tty: true
+    environment:
+      - JMETER_MASTER_PORT=${JMETER_MASTER_PORT}
+      - JMETER_WORKER_RMI_LOCAL_PORT=${JMETER_WORKER_RMI_LOCAL_PORT}
+      - JMETER_WORKER_SERVER_PORT=${JMETER_WORKER_SERVER_PORT}
+    ports:
+      - ${JMETER_MASTER_PORT}:${JMETER_MASTER_PORT}
+      - ${JMETER_WORKER_RMI_LOCAL_PORT}:${JMETER_WORKER_RMI_LOCAL_PORT}
+      - ${JMETER_WORKER_SERVER_PORT}:${JMETER_WORKER_SERVER_PORT}
+    volumes:
+      - ~/.aws:/root/.aws
+      - ./local-jmeter-results:/jmeter-results/
+    networks:
+      - testnetwork
+
+networks:
+  testnetwork:
