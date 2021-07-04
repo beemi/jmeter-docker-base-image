@@ -7,7 +7,7 @@ MAINTAINER Raja Beemi <beemi.raja@gmail.com>
 ARG JMETER_DOWNLOAD_HOST="https://archive.apache.org"
 ARG JMETER_PLUGINS_DOWNLOAD_URL="https://repo1.maven.org/maven2/kg/apc"
 ARG JMETER_PLUGINS_DOWNLOAD_URL_2="https://repo1.maven.org/maven2/com"
-ARG JMETER_VERSION="5.3"
+ARG JMETER_VERSION="5.4.1"
 ARG JMETER_PLUGINS_MANAGER_VERSION="1.4"
 ARG JMETER_PLUGIN_CASUTG="2.9"
 ARG JMETER_PLUGIN_CMN="0.6"
