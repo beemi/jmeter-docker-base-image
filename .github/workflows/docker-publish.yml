@@ -22,7 +22,7 @@ jobs:
     # Get the tag version
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/*/}
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       - name: tag details
         run: echo ${{ steps.get_version.outputs.VERSION }}
 
