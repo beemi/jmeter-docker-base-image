@@ -20,15 +20,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Get Previous tag
-        id: previous_tag
-        run: echo ::set-output name=tag::$(git tag --sort v:refname | tail -n 2 | head -n 1)
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Get next version
         id: semvers
         uses: WyriHaximus/github-action-next-semvers@v1.1
         with:
-          version: ${{ steps.previous_tag.outputs.tag }}
+          version: ${{ steps.previoustag.outputs.tag }}
 
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
