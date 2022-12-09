@@ -35,7 +35,12 @@ EXPOSE ${JMETER_MASTER_PORT} ${JMETER_WORKER_RMI_LOCAL_PORT} ${JMETER_WORKER_SER
 RUN apk update \
     && apk add --no-cache wget \
     && apk add --no-cache zip \
-    && apk add --no-cache openjdk8
+    && apk add --no-cache openjdk8 \
+    && apk add --no-cache curl \
+    && apk add --no-cache git \
+    && apk add --no-cache python3 \
+    && apk add --no-cache py3-pip \
+    && apk add --no-cache bash
 
 # Install Everything.
 RUN echo 'Installing JMETER'
