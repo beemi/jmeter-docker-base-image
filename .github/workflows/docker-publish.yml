@@ -2,8 +2,8 @@ name: Docker image build and publish
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 env:
   REGISTRY: ghcr.io
@@ -19,6 +19,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Get Previous tag
+        id: previous_tag
+        run: echo ::set-output name=tag::$(git tag --sort v:refname | tail -n 2 | head -n 1)
+
+      - name: Get next version
+        id: semvers
+        uses: WyriHaximus/github-action-next-semvers@v1.1
+        with:
+          version: ${{ steps.previous_tag.outputs.tag }}
 
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
@@ -39,5 +49,5 @@ jobs:
         with:
           context: jmeter-base/
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.semvers.outputs.patch }}
           labels: ${{ steps.meta.outputs.labels }}
